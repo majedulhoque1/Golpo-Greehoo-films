@@ -14,6 +14,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   const isHome = location.pathname === '/'
   const isOs = location.pathname.startsWith('/os')
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     if (!isHome) return
@@ -23,7 +24,19 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [isHome])
 
-  const solid = !isHome || scrolled
+  // Close the mobile menu on route change, and lock body scroll while open.
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname])
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
+  const solid = !isHome || scrolled || menuOpen
 
   // The Studio OS is a tool, not a showcase — it brings its own full-screen
   // layout (OsShell) and deliberately skips the public site's marketing chrome.
@@ -44,7 +57,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
               গল্প গৃহ
             </span>
             <span style={{ color: 'var(--text-4)' }}>·</span>
-            <span>Golpo Greehoo Films</span>
+            <span className="truncate">Golpo Greehoo Films</span>
           </Link>
           <nav className="hidden sm:flex items-center gap-7">
             {NAV.map((item) => (
@@ -60,8 +73,73 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
               </Link>
             ))}
           </nav>
+
+          {/* Mobile menu toggle — a real hit target (44px), not a tiny icon */}
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            className="sm:hidden flex items-center justify-center w-11 h-11 -mr-2"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+          >
+            <span className="relative w-5 h-4 block">
+              <span
+                className="absolute left-0 right-0 h-px transition-transform duration-300"
+                style={{
+                  top: menuOpen ? '50%' : '0',
+                  background: 'var(--text-1)',
+                  transform: menuOpen ? 'translateY(-50%) rotate(45deg)' : 'none',
+                }}
+              />
+              <span
+                className="absolute left-0 right-0 h-px top-1/2 -translate-y-1/2 transition-opacity duration-200"
+                style={{ background: 'var(--text-1)', opacity: menuOpen ? 0 : 1 }}
+              />
+              <span
+                className="absolute left-0 right-0 h-px transition-transform duration-300"
+                style={{
+                  bottom: menuOpen ? '50%' : '0',
+                  background: 'var(--text-1)',
+                  transform: menuOpen ? 'translateY(50%) rotate(-45deg)' : 'none',
+                }}
+              />
+            </span>
+          </button>
         </div>
       </header>
+
+      {/* Mobile full-screen menu */}
+      <div
+        className="sm:hidden fixed inset-0 z-40 flex flex-col justify-center px-8 transition-opacity duration-300"
+        style={{
+          background: 'var(--ink)',
+          opacity: menuOpen ? 1 : 0,
+          pointerEvents: menuOpen ? 'auto' : 'none',
+        }}
+      >
+        <nav className="flex flex-col gap-2">
+          {NAV.map((item, i) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              params={item.params}
+              className="t-bangla py-3"
+              style={{
+                fontSize: '2.25rem',
+                color: 'var(--text-1)',
+                borderBottom: i < NAV.length - 1 ? '1px solid var(--rule)' : 'none',
+                transform: menuOpen ? 'translateY(0)' : 'translateY(12px)',
+                opacity: menuOpen ? 1 : 0,
+                transition: `transform 0.4s ${0.05 + i * 0.05}s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ${0.05 + i * 0.05}s`,
+              }}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        <a href="tel:+8801870478944" className="t-slate mt-10" style={{ color: 'var(--text-3)' }}>
+          01870-478944
+        </a>
+      </div>
 
       <main className="flex-1">{children}</main>
 
