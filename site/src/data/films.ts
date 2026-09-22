@@ -194,17 +194,38 @@ export const films: Film[] = [
   },
 ]
 
+// Cast/crew below are transcribed directly from the film's own official
+// theatrical poster (Golpo Greehoo Films in association with Aloksajja) —
+// real names, not invented.
 export const featuredFilm = {
   slug: 'bokuler-buke-rokto-korobi',
   title: 'Bokuler Buke Rokto Korobi',
   titleBangla: 'বকুলের বুকে রক্তকরবী',
   tagline: 'Some stories never die.',
-  director: 'Shahrear Polok',
+  director: 'Shahrear Polock',
   directorBangla: 'শাহরিয়ার পলক',
   production: 'Golpo Greehoo Films · Aloksajja',
   locations: 'Sundarbans & Barisal',
   genre: 'Psychological horror',
   externalUrl: 'https://bbrkmovie.com',
+  poster: '/img/bbrk/poster.jpg',
+  posterAmbient: '/img/bbrk/poster-ambient.jpg',
+  posterGallery: [
+    { src: '/img/bbrk/poster-eye.jpg', alt: 'Bokuler Buke Rokto Korobi poster — close-up portrait' },
+    { src: '/img/bbrk/poster-couple.jpg', alt: 'Bokuler Buke Rokto Korobi poster — two figures in a blue-lit room' },
+    { src: '/img/bbrk/poster-woman.jpg', alt: 'Bokuler Buke Rokto Korobi poster — woman holding a flower' },
+  ],
+  cast: ['Priyontee Urbee', 'Mir Rabby', 'Kuntal Bishwas Buki', 'Shahadot Sisir'],
+  credits: [
+    { role: 'Producer', name: 'Saiful Islam' },
+    { role: 'DOP', name: 'Khaier Khandakar' },
+    { role: 'Story, Screenplay & Edit', name: 'Shahrear Polock' },
+    { role: 'Deputy Director', name: 'Sohan Polock' },
+    { role: 'Chief AD', name: 'Rakib Haq' },
+    { role: 'Music', name: 'Studio 8A · Subhro Raha · Aynus Tazwar Haque' },
+    { role: 'Color Grading', name: 'Jakir Hossain' },
+    { role: 'Costume', name: 'Zannat Mouri' },
+  ],
   characters: [
     { name: 'Bokul', nameBangla: 'বকুল', line: 'She remembers what the village chose to forget.' },
     {

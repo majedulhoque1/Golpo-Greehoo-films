@@ -16,28 +16,59 @@ function FeaturedFilmPage() {
 
   return (
     <div ref={ref}>
-      {/* Hero */}
-      <section className="relative w-full h-[100svh] min-h-[560px] flex items-end" style={{ background: 'var(--ink)' }}>
+      {/* Hero — ambient blur of the film's own official poster behind the
+          type, plus the sharp poster itself as a real card (not a placeholder
+          box) beside it. */}
+      <section
+        className="relative w-full min-h-[100svh] flex items-end sm:items-center"
+        style={{ background: 'var(--ink)' }}
+      >
         <img
-          src="/img/hero/bbrk-atmosphere.jpg"
+          src={film.posterAmbient}
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: 'brightness(0.6)' }}
+          style={{ filter: 'brightness(0.55)' }}
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(14,13,11,0.2) 0%, rgba(14,13,11,0.9) 85%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(14,13,11,0.25) 0%, rgba(14,13,11,0.92) 88%)' }} />
         <div className="absolute inset-0" style={{ background: 'radial-gradient(120% 90% at 50% 100%, rgba(157,45,25,0.18), transparent 60%)' }} />
-        <div className="relative max-w-[1600px] mx-auto px-5 sm:px-8 pb-16 sm:pb-24 w-full">
-          <div data-reveal className="t-slate mb-6" style={{ color: 'var(--korobi)' }}>
-            {film.production} · {film.genre}
+
+        <div className="relative max-w-[1600px] mx-auto px-5 sm:px-8 py-24 sm:py-16 w-full grid sm:grid-cols-[1.3fr_0.7fr] gap-10 sm:gap-16 items-center">
+          <div>
+            <div data-reveal className="t-slate mb-6" style={{ color: 'var(--korobi)' }}>
+              {film.production} · {film.genre}
+            </div>
+            <h1 data-reveal className="t-bangla" style={{ fontSize: 'clamp(2.75rem, 8vw, 7rem)', lineHeight: 0.95, color: 'var(--text-1)' }}>
+              {film.titleBangla}
+            </h1>
+            <p data-reveal className="t-h2 mt-4" style={{ color: 'var(--text-2)', fontWeight: 400 }}>
+              {film.tagline}
+            </p>
+            <p data-reveal className="t-slate mt-8" style={{ color: 'var(--text-3)' }}>
+              Starring {film.cast.join(' · ')}
+            </p>
           </div>
-          <h1 data-reveal className="t-bangla" style={{ fontSize: 'clamp(3rem, 9vw, 8rem)', lineHeight: 0.95, color: 'var(--text-1)' }}>
-            {film.titleBangla}
-          </h1>
-          <p data-reveal className="t-h2 mt-4" style={{ color: 'var(--text-2)', fontWeight: 400 }}>
-            {film.tagline}
-          </p>
+
+          {/* The real poster, shown whole — object-contain, never cropped */}
+          <div data-reveal className="hidden sm:flex justify-end">
+            <img
+              src={film.poster}
+              alt={`${film.title} — official poster`}
+              className="w-full max-w-[280px] h-auto"
+              style={{ boxShadow: '0 30px 60px -20px rgba(0,0,0,0.6)' }}
+            />
+          </div>
         </div>
       </section>
+
+      {/* Mobile poster — its own beat, right after the hero, not squeezed in */}
+      <div className="sm:hidden flex justify-center py-10" style={{ background: 'var(--ink)' }}>
+        <img
+          src={film.poster}
+          alt={`${film.title} — official poster`}
+          className="w-full max-w-[240px] h-auto"
+          style={{ boxShadow: '0 20px 40px -15px rgba(0,0,0,0.5)' }}
+        />
+      </div>
 
       {/* Story */}
       <section className="max-w-[1600px] mx-auto px-5 sm:px-8 py-24 sm:py-32">
@@ -85,7 +116,26 @@ function FeaturedFilmPage() {
         </div>
       </section>
 
-      {/* Director's vision */}
+      {/* Poster gallery */}
+      <section className="max-w-[1600px] mx-auto px-5 sm:px-8 py-24 sm:py-32">
+        <div data-reveal className="t-slate mb-10" style={{ color: 'var(--text-4)' }}>
+          The faces of the story
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
+          {film.posterGallery.map((poster) => (
+            <figure key={poster.src} data-reveal className="overflow-hidden" style={{ background: 'var(--ink-2)' }}>
+              <img
+                src={poster.src}
+                alt={poster.alt}
+                loading="lazy"
+                className="block w-full h-auto transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02]"
+              />
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      {/* Director's vision + real crew credits */}
       <section className="max-w-[1600px] mx-auto px-5 sm:px-8 py-24 sm:py-32">
         <div className="grid sm:grid-cols-2 gap-10 sm:gap-16 items-start">
           <div data-reveal>
@@ -98,9 +148,7 @@ function FeaturedFilmPage() {
             <div className="t-bangla mt-1" style={{ color: 'var(--text-4)', fontSize: '1.125rem' }}>
               {film.directorBangla}
             </div>
-          </div>
-          <div data-reveal>
-            <p className="t-body italic" style={{ color: 'var(--text-2)' }}>
+            <p className="t-body italic mt-6" style={{ color: 'var(--text-2)' }}>
               &ldquo;I wanted to make a film that lingers — the way the smell of wet earth stays on
               your skin long after the rain has left.&rdquo;
             </p>
@@ -109,6 +157,24 @@ function FeaturedFilmPage() {
               Bangladeshi households. Inspired by Tarkovsky, Apichatpong Weerasethakul, Bengali folk
               mourning songs, The Witch, Ari Aster, monsoons that refuse to end.
             </p>
+          </div>
+
+          <div data-reveal>
+            <div className="t-slate mb-4" style={{ color: 'var(--text-4)' }}>
+              Cast &amp; crew
+            </div>
+            <dl className="flex flex-col gap-3">
+              {film.credits.map((c) => (
+                <div key={c.role} className="flex items-baseline justify-between gap-4 py-2" style={{ borderBottom: '1px solid var(--rule)' }}>
+                  <dt className="t-slate shrink-0" style={{ color: 'var(--text-4)' }}>
+                    {c.role}
+                  </dt>
+                  <dd className="t-body text-right" style={{ color: 'var(--text-1)' }}>
+                    {c.name}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </section>

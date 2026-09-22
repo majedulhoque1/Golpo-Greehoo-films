@@ -7,16 +7,16 @@ import { useScrollReveal } from '#/hooks/useScrollReveal'
 export const Route = createFileRoute('/')({ component: Home })
 
 const CLIENTS = [
-  'Hero',
-  'BSRM',
-  'Airtel',
-  'Apex',
-  'Amar bKash',
-  'BATA',
-  'ACI',
-  'ICT Division',
-  'MGI Fresh',
-  'New Zealand Dairy',
+  { name: 'Hero', mark: 'H' },
+  { name: 'BSRM', mark: 'B' },
+  { name: 'Airtel', mark: 'A' },
+  { name: 'Apex', mark: 'AX' },
+  { name: 'Amar bKash', mark: 'bK' },
+  { name: 'BATA', mark: 'BA' },
+  { name: 'ACI', mark: 'ACI' },
+  { name: 'ICT Division', mark: 'ICT' },
+  { name: 'MGI Fresh', mark: 'F' },
+  { name: 'New Zealand Dairy', mark: 'NZ' },
 ]
 
 function Home() {
@@ -59,11 +59,24 @@ function Home() {
             <div data-reveal className="t-slate mb-8" style={{ color: 'var(--text-4)' }}>
               Trusted by
             </div>
-            <div data-reveal className="flex flex-wrap gap-x-10 gap-y-4">
-              {CLIENTS.map((c) => (
-                <span key={c} className="t-h2" style={{ fontSize: '1.25rem', color: 'var(--text-3)' }}>
-                  {c}
-                </span>
+            <div data-reveal className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+              {CLIENTS.map((client) => (
+                <div
+                  key={client.name}
+                  className="flex items-center gap-3 px-4 py-3 min-h-[68px]"
+                  style={{ border: '1px solid var(--rule)', background: 'rgb(255 255 255 / 0.015)' }}
+                  aria-label={client.name}
+                >
+                  <span
+                    className="flex items-center justify-center shrink-0 w-9 h-9 rounded-full t-slate"
+                    style={{ border: '1px solid var(--rule-strong)', color: 'var(--korobi)', fontSize: '0.58rem', letterSpacing: '-0.02em' }}
+                  >
+                    {client.mark}
+                  </span>
+                  <span className="t-h2 leading-none" style={{ fontSize: '1rem', color: 'var(--text-2)' }}>
+                    {client.name}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
@@ -96,23 +109,19 @@ function Home() {
                 <span style={{ color: 'var(--korobi)' }}>→</span>
               </Link>
             </div>
-            <div data-reveal className="aspect-[4/5] relative overflow-hidden" style={{ background: 'var(--ink-2)' }}>
+            <div data-reveal className="relative overflow-hidden flex items-center justify-center" style={{ background: 'var(--ink-2)' }}>
               <img
-                src="/img/hero/bbrk-atmosphere.jpg"
+                src={featuredFilm.posterAmbient}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover"
-                style={{ filter: 'brightness(0.85)' }}
+                style={{ filter: 'brightness(0.5)' }}
               />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'radial-gradient(80% 60% at 50% 55%, rgba(157,45,25,0.12), rgba(14,13,11,0.6) 75%)' }}
+              <img
+                src={featuredFilm.poster}
+                alt={`${featuredFilm.title} — official poster`}
+                className="relative w-full max-w-[220px] sm:max-w-[260px] h-auto my-10"
+                style={{ boxShadow: '0 24px 50px -18px rgba(0,0,0,0.6)' }}
               />
-              <div
-                className="absolute inset-0 flex items-center justify-center t-bangla"
-                style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', color: 'var(--korobi)', textShadow: '0 0 40px rgba(157,45,25,0.4)' }}
-              >
-                রক্তকরবী
-              </div>
             </div>
           </div>
         </section>
