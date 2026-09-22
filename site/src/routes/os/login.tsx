@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { attemptLogin, DEMO_CREDENTIALS_HINT } from '#/os/auth'
 
@@ -23,8 +23,16 @@ function LoginPage() {
     <div
       className="min-h-screen flex items-center justify-center px-5"
       style={{ fontFamily: 'var(--font-mono)', color: '#d6d6d8' }}
-    >
-      <form onSubmit={onSubmit} className="w-full max-w-sm">
+      >
+        <form onSubmit={onSubmit} className="w-full max-w-sm">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 mb-8 text-[11px] uppercase tracking-[0.14em] transition-opacity hover:opacity-70"
+          style={{ color: '#8c8c91' }}
+        >
+          <span aria-hidden="true">←</span>
+          Back to website
+        </Link>
         <div className="text-[13px] mb-1" style={{ color: '#f0f0f1' }}>
           Golpo Greehoo Films
         </div>
