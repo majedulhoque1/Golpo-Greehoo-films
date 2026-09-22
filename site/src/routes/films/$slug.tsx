@@ -75,8 +75,27 @@ function FeaturedFilmPage() {
       <section className="max-w-[1600px] mx-auto px-5 sm:px-8 py-24 sm:py-32">
         <div className="grid sm:grid-cols-[1fr_1.4fr] gap-10 sm:gap-20">
           <div data-reveal>
-            <div className="t-slate mb-4" style={{ color: 'var(--text-4)' }}>
-              The story
+            <div
+              className="relative h-full min-h-[260px] sm:min-h-[320px] overflow-hidden p-6 sm:p-8 flex flex-col justify-between"
+              style={{ background: 'var(--ink-2)', border: '1px solid var(--rule)' }}
+            >
+              <div className="absolute inset-0" style={{ background: 'radial-gradient(90% 80% at 0% 100%, rgba(157,45,25,0.54), transparent 65%)' }} />
+              <div className="absolute right-[17%] top-0 bottom-0 w-px" style={{ background: 'var(--rule-strong)' }} />
+              <div className="absolute left-0 bottom-[31%] w-[62%] h-px" style={{ background: 'var(--korobi)' }} />
+
+              <div className="relative flex items-center justify-between t-slate" style={{ color: 'var(--text-3)' }}>
+                <span>The story</span>
+                <span>01</span>
+              </div>
+
+              <div className="relative">
+                <div className="t-bangla" style={{ fontSize: 'clamp(3.5rem, 7vw, 6.5rem)', lineHeight: 0.9, color: 'var(--text-1)' }}>
+                  রক্তকরবী
+                </div>
+                <p className="t-slate mt-4" style={{ color: 'var(--korobi)' }}>
+                  A memory returns
+                </p>
+              </div>
             </div>
           </div>
           <div data-reveal className="t-body max-w-[62ch]" style={{ color: 'var(--text-2)' }}>
