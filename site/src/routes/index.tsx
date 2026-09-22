@@ -7,16 +7,16 @@ import { useScrollReveal } from '#/hooks/useScrollReveal'
 export const Route = createFileRoute('/')({ component: Home })
 
 const CLIENTS = [
-  { name: 'Hero', mark: 'H' },
-  { name: 'BSRM', mark: 'B' },
-  { name: 'Airtel', mark: 'A' },
-  { name: 'Apex', mark: 'AX' },
-  { name: 'Amar bKash', mark: 'bK' },
-  { name: 'BATA', mark: 'BA' },
-  { name: 'ACI', mark: 'ACI' },
-  { name: 'ICT Division', mark: 'ICT' },
-  { name: 'MGI Fresh', mark: 'F' },
-  { name: 'New Zealand Dairy', mark: 'NZ' },
+  { name: 'Hero', src: '/img/clients/hero.svg', alt: 'Hero logo' },
+  { name: 'BSRM', src: '/img/clients/bsrm.png', alt: 'BSRM logo' },
+  { name: 'Airtel', src: '/img/clients/airtel.jpg', alt: 'Airtel logo' },
+  { name: 'Apex', src: '/img/clients/apex.webp', alt: 'Apex logo' },
+  { name: 'bKash', src: '/img/clients/bkash.png', alt: 'bKash logo' },
+  { name: 'BATA', src: '/img/clients/bata.png', alt: 'BATA logo' },
+  { name: 'ACI', src: '/img/clients/aci.png', alt: 'ACI logo' },
+  { name: 'ICT Division', src: '/img/clients/ict-division.png', alt: 'ICT Division logo' },
+  { name: 'MGI Fresh', src: '/img/clients/mgi-fresh.png', alt: 'Meghna Group of Industries logo' },
+  { name: 'New Zealand Dairy', src: '/img/clients/new-zealand-dairy.png', alt: 'New Zealand Dairy logo' },
 ]
 
 function Home() {
@@ -61,22 +61,16 @@ function Home() {
             </div>
             <div data-reveal className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
               {CLIENTS.map((client) => (
-                <div
+                <figure
                   key={client.name}
-                  className="flex items-center gap-3 px-4 py-3 min-h-[68px]"
-                  style={{ border: '1px solid var(--rule)', background: 'rgb(255 255 255 / 0.015)' }}
-                  aria-label={client.name}
+                  className="flex flex-col items-center justify-center gap-2 px-4 py-4 min-h-[112px]"
+                  style={{ border: '1px solid var(--rule)', background: 'var(--paper)' }}
                 >
-                  <span
-                    className="flex items-center justify-center shrink-0 w-9 h-9 rounded-full t-slate"
-                    style={{ border: '1px solid var(--rule-strong)', color: 'var(--korobi)', fontSize: '0.58rem', letterSpacing: '-0.02em' }}
-                  >
-                    {client.mark}
-                  </span>
-                  <span className="t-h2 leading-none" style={{ fontSize: '1rem', color: 'var(--text-2)' }}>
+                  <img src={client.src} alt={client.alt} loading="lazy" className="w-full max-w-[134px] h-10 object-contain" />
+                  <figcaption className="t-slate text-center" style={{ fontSize: '0.57rem', color: 'var(--ink-3)' }}>
                     {client.name}
-                  </span>
-                </div>
+                  </figcaption>
+                </figure>
               ))}
             </div>
           </div>

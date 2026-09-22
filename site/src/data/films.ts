@@ -208,6 +208,7 @@ export const featuredFilm = {
   locations: 'Sundarbans & Barisal',
   genre: 'Psychological horror',
   externalUrl: 'https://bbrkmovie.com',
+  heroImage: '/img/bbrk/hero-key-art.jpeg',
   poster: '/img/bbrk/poster.jpg',
   posterAmbient: '/img/bbrk/poster-ambient.jpg',
   posterGallery: [

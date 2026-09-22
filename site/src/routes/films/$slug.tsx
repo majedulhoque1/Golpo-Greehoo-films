@@ -20,36 +20,37 @@ function FeaturedFilmPage() {
           type, plus the sharp poster itself as a real card (not a placeholder
           box) beside it. */}
       <section
-        className="relative w-full min-h-[100svh] flex items-end sm:items-center"
+        className="relative isolate w-full min-h-[74svh] sm:min-h-0 sm:aspect-[2752/1536] flex items-end"
         style={{ background: 'var(--ink)' }}
       >
         <img
-          src={film.posterAmbient}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: 'brightness(0.55)' }}
+          src={film.heroImage}
+          alt={`${film.title} official key art`}
+          fetchPriority="high"
+          className="absolute inset-0 w-full h-full object-cover object-[52%_center] sm:object-center"
+          style={{ filter: 'brightness(0.88)' }}
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(14,13,11,0.25) 0%, rgba(14,13,11,0.92) 88%)' }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(14,13,11,0.46) 0%, transparent 28%, transparent 66%, rgba(14,13,11,0.34) 100%)' }} />
         <div className="absolute inset-0" style={{ background: 'radial-gradient(120% 90% at 50% 100%, rgba(157,45,25,0.18), transparent 60%)' }} />
 
-        <div className="relative max-w-[1600px] mx-auto px-5 sm:px-8 py-24 sm:py-16 w-full grid sm:grid-cols-[1.3fr_0.7fr] gap-10 sm:gap-16 items-center">
+        <div className="relative z-10 max-w-[1600px] mx-auto px-5 sm:px-8 pt-24 pb-8 sm:pt-20 sm:pb-10 w-full self-start">
           <div>
-            <div data-reveal className="t-slate mb-6" style={{ color: 'var(--korobi)' }}>
+            <div data-reveal className="t-slate inline-block px-3 py-2" style={{ color: 'var(--text-2)', background: 'rgb(14 13 11 / 0.42)', backdropFilter: 'blur(10px)' }}>
               {film.production} · {film.genre}
             </div>
-            <h1 data-reveal className="t-bangla" style={{ fontSize: 'clamp(2.75rem, 8vw, 7rem)', lineHeight: 0.95, color: 'var(--text-1)' }}>
+            <h1 className="sr-only" style={{ fontSize: 'clamp(2.75rem, 8vw, 7rem)', lineHeight: 0.95, color: 'var(--text-1)' }}>
               {film.titleBangla}
             </h1>
-            <p data-reveal className="t-h2 mt-4" style={{ color: 'var(--text-2)', fontWeight: 400 }}>
+            <p className="hidden" style={{ color: 'var(--text-2)', fontWeight: 400 }}>
               {film.tagline}
             </p>
-            <p data-reveal className="t-slate mt-8" style={{ color: 'var(--text-3)' }}>
+            <p className="hidden" style={{ color: 'var(--text-3)' }}>
               Starring {film.cast.join(' · ')}
             </p>
           </div>
 
           {/* The real poster, shown whole — object-contain, never cropped */}
-          <div data-reveal className="hidden sm:flex justify-end">
+          <div className="hidden">
             <img
               src={film.poster}
               alt={`${film.title} — official poster`}
@@ -61,7 +62,7 @@ function FeaturedFilmPage() {
       </section>
 
       {/* Mobile poster — its own beat, right after the hero, not squeezed in */}
-      <div className="sm:hidden flex justify-center py-10" style={{ background: 'var(--ink)' }}>
+      <div className="hidden" style={{ background: 'var(--ink)' }}>
         <img
           src={film.poster}
           alt={`${film.title} — official poster`}
