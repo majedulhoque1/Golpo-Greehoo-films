@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+dist/
+.vercel/
+.playwright-mcp/
+
+# Research working files — reference only, not site assets
+research/raw/
